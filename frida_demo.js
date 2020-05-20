@@ -129,7 +129,18 @@ function challenge62(){
 }
 function challenge7(){
     Java.perform(function(){
-
+        Java.enumerateLoadedClasses({
+            onMatch:function(name, handler){
+                if(name.indexOf("com.example.androiddemo") >= 0){
+                    var hookclass = Java.use(name)
+                    var interFaces = hookclass.class.getInterfaces()
+                    for(var i = 0 ; i < interFaces.length; i++)
+                    {
+                        console.log("interface: ", interFaces[i].toString())
+                    }
+                }
+            },onComplete:function(){}
+        })
     })
 }
 setImmediate(challenge7)
